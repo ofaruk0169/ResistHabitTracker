@@ -8,14 +8,10 @@ import kotlinx.coroutines.*
 class TimerAndAPIViewModel: ViewModel()
 {
 
-    private val currentNumber: MutableLiveData<Int> by lazy{
-        MutableLiveData<Int>()
-    }
-
-    private var timerCallback: ((Int) -> Unit)? = null
-
-    fun setTimerCallback(callback: (Int) -> Unit) {
-        timerCallback = callback
+    public val currentNumber: MutableLiveData<Int> by lazy{
+        MutableLiveData<Int>().apply {
+            value = 0
+        }
     }
 
     public var isTimerRunning: Boolean = false
@@ -31,11 +27,9 @@ class TimerAndAPIViewModel: ViewModel()
             isTimerRunning = true
             job = CoroutineScope(Dispatchers.Main).launch {
                 while (isActive) {
-                    // Perform timer-related operations here
-                    currentNumber++
-                    // Log or update UI with the currentStreak value
-                     callback.invoke(currentNumber)
-                    // Delay for 1 second
+
+                    currentNumber.postValue(currentNumber.value?.plus(1))
+
                     delay(1000)
                 }
             }
