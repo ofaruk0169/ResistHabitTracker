@@ -19,6 +19,10 @@ class TimerAndAPIViewModel(private val callback: (Int) -> Unit)
 
     var currentNumber: Int = 0
 
+    //90 seconds = 1:30
+    //divide 90 by 60
+
+
     fun startTimer() {
         // if the timer is not already running, start the timer
         if (!isTimerRunning) {
