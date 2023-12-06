@@ -19,8 +19,6 @@ class TimerAndAPIViewModel: ViewModel()
     private var job: Job? = null
 
 
-
-    //my live data from video on 3:38
     fun startTimer() {
         // if the timer is not already running, start the timer
         if (!isTimerRunning) {
