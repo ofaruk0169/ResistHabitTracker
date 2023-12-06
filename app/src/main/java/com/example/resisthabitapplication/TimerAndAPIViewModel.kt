@@ -19,10 +19,6 @@ class TimerAndAPIViewModel(private val callback: (Int) -> Unit)
 
     var currentNumber: Int = 0
 
-    //90 seconds = 1:30
-    //divide 90 by 60
-
-
     fun startTimer() {
         // if the timer is not already running, start the timer
         if (!isTimerRunning) {
@@ -44,29 +40,6 @@ class TimerAndAPIViewModel(private val callback: (Int) -> Unit)
     fun updateCount() {
 
     }
-
-    /*
-    fun startTimer() {
-        GlobalScope.launch {
-            //if the timer is off, turn it on.
-            if(!isTimerOn) {
-                isTimerOn = true
-                for (i in numbersArray) {
-                    currentNumber = i
-                    callback.invoke(currentNumber)
-                }
-                //currentTime++
-                //we need to continue the timer count somehow
-            }
-        }
-    }
-
-     */
-    ///////////////////////////////end of start function
-
-    //restart()
-
-
 
 
 }
