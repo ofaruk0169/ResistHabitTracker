@@ -3,32 +3,26 @@ package com.example.resisthabitapplication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var mainViewModel: TimerAndAPIViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //get information from the TimerModel class and put it into the views below
+        mainViewModel = ViewModelProvider(this).get(TimerAndAPIViewModel::class.java)
 
-        val timeElapsed = findViewById<TextView>(R.id.streakTimeMinutes)
+        mainViewModel.startTimer()
 
+        val timeElapsedView = findViewById<TextView>(R.id.streakTimeMinutes)
 
-
-        //create a callback to update the UI
-        val updateUICallback: (Int) -> Unit = { currentStreak ->
-            timeElapsed.text = "Current Streak: $currentStreak"
-        }
-        //I want the timer function to start here
-        var timerStart = TimerAndAPIViewModel(updateUICallback)
-        timerStart.startTimer()
-
-
-
-
-
-        //make the value above equal to the function called by the TimerClass
-
+        mainViewModel.currentNumber.observe(this, Observer {
+            timeElapsedView.text = it.toString()
+        })
 
     }
+
 }

@@ -1,15 +1,17 @@
 package com.example.resisthabitapplication
 
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
 
 
-class TimerAndAPIViewModel(private val callback: (Int) -> Unit)
+class TimerAndAPIViewModel: ViewModel()
 {
 
-    private var timerCallback: ((Int) -> Unit)? = null
-
-    fun setTimerCallback(callback: (Int) -> Unit) {
-        timerCallback = callback
+    public val currentNumber: MutableLiveData<Int> by lazy{
+        MutableLiveData<Int>().apply {
+            value = 0
+        }
     }
 
     public var isTimerRunning: Boolean = false
@@ -17,29 +19,19 @@ class TimerAndAPIViewModel(private val callback: (Int) -> Unit)
     private var job: Job? = null
 
 
-    var currentNumber: Int = 0
-
     fun startTimer() {
         // if the timer is not already running, start the timer
         if (!isTimerRunning) {
             isTimerRunning = true
             job = CoroutineScope(Dispatchers.Main).launch {
                 while (isActive) {
-                    // Perform timer-related operations here
-                    currentNumber++
-                    // Log or update UI with the currentStreak value
-                    callback.invoke(currentNumber)
-                    // Delay for 1 second
+
+                    currentNumber.postValue(currentNumber.value?.plus(1))
+
                     delay(1000)
                 }
             }
         }
         // else the timer should continue as normal.
     }
-
-    fun updateCount() {
-
-    }
-
-
 }
