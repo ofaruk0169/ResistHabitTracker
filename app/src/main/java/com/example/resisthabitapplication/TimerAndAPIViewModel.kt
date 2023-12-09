@@ -7,7 +7,6 @@ import kotlinx.coroutines.*
 
 class TimerAndAPIViewModel: ViewModel()
 {
-
     public val currentNumber: MutableLiveData<Int> by lazy{
         MutableLiveData<Int>().apply {
             value = 0
@@ -15,19 +14,15 @@ class TimerAndAPIViewModel: ViewModel()
     }
 
     public var isTimerRunning: Boolean = false
-    public var currentTime = 0
     private var job: Job? = null
-
 
     fun startTimer() {
         // if the timer is not already running, start the timer
         if (!isTimerRunning) {
             isTimerRunning = true
-            job = CoroutineScope(Dispatchers.Main).launch {
+            job = CoroutineScope(Dispatchers.Default).launch {
                 while (isActive) {
-
                     currentNumber.postValue(currentNumber.value?.plus(1))
-
                     delay(1000)
                 }
             }
