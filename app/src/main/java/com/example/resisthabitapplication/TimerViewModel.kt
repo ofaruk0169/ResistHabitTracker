@@ -39,4 +39,10 @@ class TimerViewModel: ViewModel()
         // else the timer should continue as normal.
     }
 
+    override fun onCleared() {
+        // Cancel the coroutine when the ViewModel is cleared
+        job?.cancel()
+        super.onCleared()
+    }
+
 }

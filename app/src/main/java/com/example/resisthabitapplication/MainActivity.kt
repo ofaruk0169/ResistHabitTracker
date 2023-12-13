@@ -18,7 +18,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mainViewModel = ViewModelProvider(this).get(TimerViewModel::class.java)
+        //mainViewModel = ViewModelProvider(this).get(TimerViewModel::class.java)
+        mainViewModel = ViewModelProvider(this)[TimerViewModel::class.java]
+
         mainViewModel.startTimer()
 
         val timeElapsedView = findViewById<TextView>(R.id.streakTimeMinutes)
