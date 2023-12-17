@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         val timeElapsedView = findViewById<TextView>(R.id.streakTimeMinutes)
 
+        //val worker = TimerWorker(this, streakTimeMinutes, mainViewModel)
 
 
         lifecycleScope.launch {

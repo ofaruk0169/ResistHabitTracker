@@ -1,8 +1,7 @@
 package com.example.resisthabitapplication
-
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
-import androidx.lifecycle.viewModelScope
+import android.content.Context
 import androidx.work.Data
 import androidx.work.PeriodicWorkRequestBuilder
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,42 +32,14 @@ class TimerModel: ViewModel()
     }
 
 
+
     val addTimeRequest =
         PeriodicWorkRequestBuilder<TimerWorker>(1, TimeUnit.SECONDS)
             // Additional configuration
             .setInputData(workerData)
             .build()
 
-    //WorkManager.getInstance().enqueue(addTimeRequest)
-
-
-
-
-
-
-  /*
-    fun startTimer() {
-        // if the timer is not already running, start the timer
-        if (!isTimerRunning) {
-            isTimerRunning = true
-            job = viewModelScope.launch {
-                try {
-                    while (isActive) {
-                        _currentNumber.value = _currentNumber.value + 1
-                        delay(1000)
-                    }
-                } finally {
-                    // This block is executed when the coroutine is cancelled
-                    isTimerRunning = false
-                }
-            }
-        }
-        // else the timer should continue as normal.
-    }
-   */
-
-    //Do the work request part 2 and 3 here.
-
+    //WorkManager.getInstance(context).enqueue(addTimeRequest)
 
     override fun onCleared() {
         // Cancel the coroutine when the ViewModel is cleared
