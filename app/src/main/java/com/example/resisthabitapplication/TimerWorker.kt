@@ -1,6 +1,7 @@
 package com.example.resisthabitapplication
 
 import android.content.Context
+import androidx.lifecycle.ViewModelProvider
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 
@@ -16,7 +17,11 @@ class TimerWorker(context: Context, workerParams: WorkerParameters) :
 
 
 
-        (applicationContext as? ResistHabitApplication)?.TimerModel?.updateCurrentNumber(currentNumber)
+        //mainViewModel = ViewModelProvider(this)[TimerModel::class.java]
+        val viewModel = TimerModel()
+        viewModel.updateCurrentNumber(currentNumber)
+
+        //(applicationContext as? ResistHabitApplication)?.TimerModel?.updateCurrentNumber(currentNumber)
 
 
 
