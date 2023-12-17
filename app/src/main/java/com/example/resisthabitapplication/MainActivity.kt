@@ -7,19 +7,18 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mainViewModel: TimerViewModel
+    private lateinit var mainViewModel: TimerModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         //mainViewModel = ViewModelProvider(this).get(TimerViewModel::class.java)
-        mainViewModel = ViewModelProvider(this)[TimerViewModel::class.java]
+        mainViewModel = ViewModelProvider(this)[TimerModel::class.java]
 
         mainViewModel.startTimer()
 

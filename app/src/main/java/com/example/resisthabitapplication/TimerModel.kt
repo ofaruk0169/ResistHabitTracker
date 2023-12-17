@@ -1,25 +1,27 @@
 package com.example.resisthabitapplication
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
+
 //import kotlinx.coroutines.launch
 
 
-class TimerViewModel: ViewModel()
+class TimerModel: ViewModel()
 {
 
     private val _currentNumber = MutableStateFlow<Int>(0)
     val currentNumber = _currentNumber.asStateFlow()
 
+    private val _isTimerRunning = MutableStateFlow(false)
     private var isTimerRunning: Boolean = false
+    private val _jobState = MutableStateFlow<Job?>(null)
     private var job: Job? = null
 
+
+  /*
     fun startTimer() {
         // if the timer is not already running, start the timer
         if (!isTimerRunning) {
@@ -38,6 +40,7 @@ class TimerViewModel: ViewModel()
         }
         // else the timer should continue as normal.
     }
+   */
 
     override fun onCleared() {
         // Cancel the coroutine when the ViewModel is cleared
