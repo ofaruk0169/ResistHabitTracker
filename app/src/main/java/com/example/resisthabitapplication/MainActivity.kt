@@ -20,9 +20,11 @@ class MainActivity : AppCompatActivity() {
         //mainViewModel = ViewModelProvider(this).get(TimerViewModel::class.java)
         mainViewModel = ViewModelProvider(this)[TimerModel::class.java]
 
-        mainViewModel.startTimer()
+        //mainViewModel.startTimer()
 
         val timeElapsedView = findViewById<TextView>(R.id.streakTimeMinutes)
+
+
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -33,6 +35,9 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+
+
+
         }
     }
 }

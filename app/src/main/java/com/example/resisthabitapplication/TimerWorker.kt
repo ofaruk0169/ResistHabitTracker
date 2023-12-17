@@ -11,6 +11,8 @@ class TimerWorker(appContext: Context, workerParams: WorkerParameters) {
         // Indicate whether the work finished successfully with the Result
         // in my case, if i was able to increment the counter successfully.
 
+        //add the number 1
+
 
 
 
