@@ -2,13 +2,12 @@ package com.example.resisthabitapplication
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-
+import androidx.work.workDataOf
 
 
 class TimerWorker(
     context: Context,
-    workerParams: WorkerParameters,
-    private val timerModel: TimerModel
+    workerParams: WorkerParameters
 ) : Worker(context, workerParams) {
 
     override fun doWork(): Result {
@@ -16,13 +15,15 @@ class TimerWorker(
         val currentNumber = inputData.getInt("currentNumber", 0)
 
 
-        timerModel.updateCurrentNumber(currentNumber)
+        //update number here
+        val updatedNumber = currentNumber + 1
+
+        val outputData= workDataOf("updatedNumber" to updatedNumber)
 
 
-
-
+        //timerViewModel.updateCurrentNumber(currentNumber)
         // Indicate whether the work was successful
-        return Result.success()
+        return Result.success(outputData)
     }
 }
 

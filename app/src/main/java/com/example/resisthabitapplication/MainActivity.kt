@@ -7,18 +7,19 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.work.WorkManager
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mainViewModel: TimerModel
+    private lateinit var mainViewModel: TimerViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         //mainViewModel = ViewModelProvider(this).get(TimerViewModel::class.java)
-        mainViewModel = ViewModelProvider(this)[TimerModel::class.java]
+        mainViewModel = ViewModelProvider(this)[TimerViewModel::class.java]
 
         //mainViewModel.startTimer()
 
@@ -27,18 +28,28 @@ class MainActivity : AppCompatActivity() {
         //val worker = TimerWorker(this, streakTimeMinutes, mainViewModel)
 
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                mainViewModel.currentNumber.collect { data ->
-                    // This block is executed when the observed data changes
-                    runOnUiThread {
-                        timeElapsedView.text = data.toString()
-                    }
-                }
+    }
+}
+
+
+
+/*
+        WorkManager
+            .getInstance(this)
+            .enqueue(addTimeRequest)
+
+
+ */
+/*
+lifecycleScope.launch {
+    repeatOnLifecycle(Lifecycle.State.STARTED) {
+        mainViewModel.currentNumber.collect { data ->
+            // This block is executed when the observed data changes
+            runOnUiThread {
+                timeElapsedView.text = data.toString()
             }
-
-
-
         }
     }
 }
+
+ */
