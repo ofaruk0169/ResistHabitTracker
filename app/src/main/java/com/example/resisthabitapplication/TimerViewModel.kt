@@ -15,23 +15,15 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.observeOn
 import java.util.concurrent.TimeUnit
 
-//import kotlinx.coroutines.launch
-
-
-
 class TimerViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val appContext: Context = application.applicationContext
 
-private val appContext: Context = application.applicationContext
-
-
-
-
-private val _currentNumber = MutableStateFlow<Int>(0)
+    private val _currentNumber = MutableStateFlow<Int>(0)
     val currentNumber = _currentNumber.asStateFlow()
 
     // Wrap the current number in Data
-    val workerData = Data.Builder()
+    private val workerData = Data.Builder()
         .putInt(
             "currentNumber",
             _currentNumber.value
@@ -39,62 +31,50 @@ private val _currentNumber = MutableStateFlow<Int>(0)
         .build()
 
     private var isTimerRunning: Boolean = false
-    //private var job: Job? = null
 
     private fun updateCurrentNumber(newNumber: Int) {
         _currentNumber.value = newNumber
     }
 
-        suspend fun startTimer() {
-            if (!isTimerRunning) {
+    suspend fun startTimer() {
+        if (!isTimerRunning) {
+            isTimerRunning = true
 
-                isTimerRunning = true
+            val addTimeRequest =
+                PeriodicWorkRequestBuilder<TimerWorker>(1, TimeUnit.SECONDS)
+                    .setInputData(workerData)
+                    .build()
 
-                val addTimeRequest =
-                    PeriodicWorkRequestBuilder<TimerWorker>(1, TimeUnit.SECONDS)
-                        .setInputData(workerData)
-                        .build()
+            // Enqueue the work
+            WorkManager.getInstance(appContext).enqueue(addTimeRequest)
 
-                // Enqueue the work
-                WorkManager.getInstance(appContext).enqueue(addTimeRequest)
+            WorkManager.getInstance(appContext)
+                .getWorkInfoByIdFlow(addTimeRequest.id)
+                .flowOn(Dispatchers.Default) // Set the dispatcher for downstream operations
+                .collect { workInfo ->
+                    // Process the workInfo on the specified dispatcher
+                    // Handle the work result
+                    when (workInfo.state) {
+                        WorkInfo.State.SUCCEEDED -> {
+                            // Work completed successfully
+                            val outputData = workInfo.outputData
+                            // Process the output data if needed
+                            //use the updated number function to update the number. Doing this tomorrow.
+                        }
 
-                // Observe the work result
-                WorkManager.getInstance(appContext)
-                    .getWorkInfoByIdFlow(addTimeRequest.id)
-                    .flowOn(Dispatchers.Default)
-                    .collect { workerInfo ->
-                        // Handle the work result
-                        when (workerInfo.state) {
-                            WorkInfo.State.SUCCEEDED -> {
-                                // Work completed successfully
-                                val outputData = workerInfo.outputData
-                                val newNumber = outputData.getInt("newNumber", 0)
-                                // Process the output data here
-                                updateCurrentNumber(newNumber)
-                            }
-
-                            WorkInfo.State.FAILED -> {
-                                // Work failed
-                                val failureMessage =
-                                    workerInfo.outputData.getString("KEY_FAILURE_MESSAGE")
-                                // Handle the failure
-                            }
-                            // Handle other states as needed
-                            // WorkInfo.State.RUNNING, WorkInfo.State.CANCELLED, etc.
-                            else -> {}
+                        WorkInfo.State.FAILED -> {
+                            // Work failed
+                            val failureReason = "fail"
+                            // Handle the failure
+                        }
+                        // Handle other states as needed
+                        // WorkInfo.State.RUNNING, WorkInfo.State.CANCELLED, etc.
+                        else -> {
+                            // Handle any unexpected states
                         }
                     }
-            }
+                }
         }
     }
 
-
-
-/*
-override fun onCleared() {
-    // Cancel the coroutine when the ViewModel is cleared
-    job?.cancel()
-    super.onCleared()
 }
-
- */

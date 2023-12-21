@@ -16,25 +16,29 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val timerViewModel = ViewModelProvider(this)[TimerViewModel::class.java]
+        val timeElapsedView = findViewById<TextView>(R.id.streakTimeMinutes)
 
-        // Example: Start the timer
+
+
+        // Observe changes to the currentNumber property in the ViewModel
         lifecycleScope.launch {
-            // Use the timerViewModel to start the timer
-            timerViewModel.startTimer()
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                timerViewModel.currentNumber.collect { data ->
-                    // This block is executed when the observed data changes
-                    runOnUiThread {
-                        timeElapsedView.text = data.toString()
-                    }
+                timerViewModel.currentNumber.collect { count ->
+                    // Update the UI with the current count
+                    timeElapsedView.text = count.toString()
                 }
             }
         }
 
+        // Start the timer when the activity is created
 
-
+        lifecycleScope.launch {
+            timerViewModel.startTimer()
+        }
     }
 }
+
+
 
 
 
