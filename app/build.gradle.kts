@@ -46,6 +46,10 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
+    val activityVersion = "1.8.2"
+    implementation("androidx.activity:activity-ktx:$activityVersion")
+
+
     val lifecycleVersion = "2.6.2"
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
