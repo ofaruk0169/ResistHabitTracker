@@ -9,11 +9,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class TimerViewModel(private val savedStateHandle: SavedStateHandle): ViewModel()
+class TimerViewModel(
+    private val savedStateHandle: SavedStateHandle): ViewModel()
 {
     private val _currentNumber = MutableStateFlow<Int>(savedStateHandle["currentNumber"] ?: 0)
-    //val currentNumber = _currentNumber.asStateFlow()
-    val currentNumber: StateFlow<Int> get() = _currentNumber
+    val currentNumber = _currentNumber.asStateFlow()
+
     init {
         // Log the initial value for debugging
         Log.d("TimerViewModel", "Initial Value: ${_currentNumber.value}")
