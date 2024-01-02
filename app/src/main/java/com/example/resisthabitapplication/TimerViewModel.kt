@@ -1,5 +1,6 @@
 package com.example.resisthabitapplication
 
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -10,7 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class TimerViewModel(
-    private val savedStateHandle: SavedStateHandle,
+    private val savedStateHandle: SavedStateHandle
 ): ViewModel() {
     private val _currentNumber = MutableStateFlow<Int>(savedStateHandle["currentNumber"] ?: 0)
     val currentNumber = _currentNumber.asStateFlow()
