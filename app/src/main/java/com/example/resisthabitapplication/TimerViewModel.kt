@@ -1,43 +1,37 @@
 package com.example.resisthabitapplication
 
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.*
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 
 class TimerViewModel(
-    private val savedStateHandle: SavedStateHandle
-): ViewModel() {
-    private val _currentNumber = MutableStateFlow<Int>(savedStateHandle["currentNumber"] ?: 0)
-    val currentNumber = _currentNumber.asStateFlow()
+    private val savedStateHandle: SavedStateHandle,
+    private val sharedPreferences: SharedPreferences
+) : ViewModel() {
+
+    private val _currentNumber = MutableStateFlow<Int>(0)
+    val currentNumber: StateFlow<Int> get() = _currentNumber.asStateFlow()
 
     init {
-        // Log the initial value for debugging
-        Log.d("TimerViewModel", "Initial Value: ${_currentNumber.value}")
-
-        // Initialize _currentNumber with the value from SavedStateHandle
-        _currentNumber.value = savedStateHandle["currentNumber"] ?: 0
-
-        // Log the restored value for debugging
-        Log.d("TimerViewModel", "Restored Value: ${_currentNumber.value}")
+        // Initialize _currentNumber with the value from SavedStateHandle or SharedPreferences
+        _currentNumber.value =
+            savedStateHandle.get("currentNumber") ?: sharedPreferences.getInt("currentNumber", 0)
     }
 
     private fun updateCurrentNumber(newNumber: Int) {
         _currentNumber.value = newNumber
-        savedStateHandle["currentNumber"] = newNumber
-        Log.d("TimerViewModel", "Saved currentNumber: $newNumber")
-    }
 
-    private fun displaySaved() {
-        for (key in savedStateHandle.keys()) {
-            val value: Int? = savedStateHandle.get(key)
-            Log.d("SavedStateHandle", "$key: $value")
-        }
+        // Save the current number to both SavedStateHandle and SharedPreferences
+        savedStateHandle["currentNumber"] = newNumber
+        sharedPreferences.edit().putInt("currentNumber", newNumber).apply()
     }
 
     private var isTimerRunning: Boolean = false
@@ -47,20 +41,6 @@ class TimerViewModel(
         // if the timer is not already running, start the timer
         if (!isTimerRunning) {
             isTimerRunning = true
-            job = viewModelScope.launch {
-                try {
-                    while (isActive) {
-                        _currentNumber.value = _currentNumber.value + 1
-                        updateCurrentNumber(_currentNumber.value)
-                        displaySaved()
-                        delay(1000)
-                    }
-                } finally {
-                    // This block is executed when the coroutine is cancelled
-                    isTimerRunning = false
-                }
-            }
-        } else {
             job = viewModelScope.launch {
                 try {
                     while (isActive) {
@@ -82,5 +62,4 @@ class TimerViewModel(
         job?.cancel()
         super.onCleared()
     }
-
 }
