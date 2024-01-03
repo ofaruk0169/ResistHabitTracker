@@ -1,5 +1,6 @@
 package com.example.resisthabitapplication
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
@@ -10,11 +11,17 @@ import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import androidx.activity.viewModels
+import androidx.lifecycle.SavedStateHandle
 
 
 class MainActivity : AppCompatActivity() {
 
-    private val timerViewModel: TimerViewModel by viewModels()
+    private val timerViewModel: TimerViewModel by viewModels {
+        TimerViewModelFactory(
+            SavedStateHandle( /* Pass any default values if needed */ ),
+            getSharedPreferences("current_streak", Context.MODE_PRIVATE)
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

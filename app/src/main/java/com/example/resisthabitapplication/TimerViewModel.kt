@@ -20,31 +20,49 @@ class TimerViewModel(
     private val _currentNumber = MutableStateFlow<Int>(0)
     val currentNumber: StateFlow<Int> get() = _currentNumber.asStateFlow()
 
+    private var startTimeMillis: Long = 0
+
     init {
         // Initialize _currentNumber with the value from SavedStateHandle or SharedPreferences
         _currentNumber.value =
-            savedStateHandle.get("currentNumber") ?: sharedPreferences.getInt("currentNumber", 0)
+            savedStateHandle["currentNumber"] ?: sharedPreferences.getInt("currentNumber", 0)
+
+        // If there's a saved start time, calculate the time elapsed since then
+        val savedStartTimeMillis = sharedPreferences.getLong("start_time_millis", 0)
+        if (savedStartTimeMillis > 0) {
+            val elapsedTimeSeconds = ((System.currentTimeMillis() - savedStartTimeMillis) / 1000).toInt()
+            _currentNumber.value += elapsedTimeSeconds
+        }
+
+        // Start the timer
+        startTimer()
     }
 
     private fun updateCurrentNumber(newNumber: Int) {
         _currentNumber.value = newNumber
 
-        // Save the current number to both SavedStateHandle and SharedPreferences
+        // Save the current number and start time to both SavedStateHandle and SharedPreferences
         savedStateHandle["currentNumber"] = newNumber
-        sharedPreferences.edit().putInt("currentNumber", newNumber).apply()
+        sharedPreferences.edit()
+            .putInt("currentNumber", newNumber)
+            .putLong("start_time_millis", startTimeMillis)
+            .apply()
     }
 
     private var isTimerRunning: Boolean = false
     private var job: Job? = null
 
     fun startTimer() {
-        // if the timer is not already running, start the timer
+        // If the timer is not already running, start the timer
         if (!isTimerRunning) {
             isTimerRunning = true
+            startTimeMillis = System.currentTimeMillis()
+
             job = viewModelScope.launch {
                 try {
                     while (isActive) {
-                        _currentNumber.value = _currentNumber.value + 1
+                        val elapsedTimeSeconds = ((System.currentTimeMillis() - startTimeMillis) / 1000).toInt()
+                        _currentNumber.value += 1
                         updateCurrentNumber(_currentNumber.value)
                         delay(1000)
                     }
