@@ -3,6 +3,7 @@ package com.example.resisthabitapplication
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -41,5 +42,26 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        // Find the reset button by its ID
+        val resetButton = findViewById<Button>(R.id.resetButton)
+
+        // Click listener for the reset button
+        resetButton.setOnClickListener {
+            resetTimer()
+        }
+
     }
+
+    // Function to reset the timer
+    private fun resetTimer() {
+        // Reset the timer value to 0
+        timerViewModel.resetTimer()
+
+        // Optionally, update any UI elements or perform additional actions after reset
+    }
+
+
+
+
 }

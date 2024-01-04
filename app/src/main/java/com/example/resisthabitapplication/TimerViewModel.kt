@@ -80,4 +80,9 @@ class TimerViewModel(
         job?.cancel()
         super.onCleared()
     }
+
+    fun resetTimer() {
+        // Reset the timer value to 0
+        updateCurrentNumber(0)
+    }
 }
