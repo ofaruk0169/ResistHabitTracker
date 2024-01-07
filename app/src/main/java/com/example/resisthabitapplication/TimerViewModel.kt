@@ -75,12 +75,27 @@ class TimerViewModel(
         // else the timer should continue as normal.
     }
 
+    //function to format the time
+    fun formatTimerValue(): String {
+        val hours = _currentNumber.value / 3600
+        val minutes = (_currentNumber.value % 3600) / 60
+        val seconds = _currentNumber.value % 60
+
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds)
+    }
+
+    // Function to get the number of days
+    fun getDays(): Int {
+        return _currentNumber.value / (24 * 3600)
+    }
+
     override fun onCleared() {
         // Cancel the coroutine when the ViewModel is cleared
         job?.cancel()
         super.onCleared()
     }
 
+    //function to format the timer to 0 seconds
     fun resetTimer() {
         // Reset the timer value to 0
         updateCurrentNumber(0)

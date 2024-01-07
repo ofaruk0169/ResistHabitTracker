@@ -46,6 +46,20 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
+    //ktor api req
+    //implementation("io.ktor:ktor-server-core:2.3.7")
+    //implementation("io.ktor:ktor-server-netty:2.3.7")
+    //implementation ("io.ktor:ktor-client-json:2.3.7")
+
+    implementation ("io.ktor:ktor-client-core:2.3.7")
+    implementation ("io.ktor:ktor-client-json:2.3.7")
+    implementation ("io.ktor:ktor-client-android:2.3.7")
+    implementation ("io.ktor:ktor-client-logging:2.3.7")
+    implementation ("ch.qos.logback:logback-classic:1.2.3")
+
+
+
+
     val activityVersion = "1.8.2"
     implementation("androidx.activity:activity-ktx:$activityVersion")
 
