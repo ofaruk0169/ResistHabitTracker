@@ -22,7 +22,7 @@ class QuoteAPIViewModel : ViewModel() {
     fun fetchQuote() {
         // Use Ktor to make API request
         val client = HttpClient()
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response: HttpResponse = client.get("https://zenquotes.io/api/today")
 
