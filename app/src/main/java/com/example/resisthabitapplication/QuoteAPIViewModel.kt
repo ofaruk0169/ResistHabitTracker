@@ -45,7 +45,6 @@ class QuoteAPIViewModel : ViewModel() {
 
                         // Assign the quote to your variable or use it as needed
                         _currentQuote.value = fullQuote
-
                     }
 
                 } else {
