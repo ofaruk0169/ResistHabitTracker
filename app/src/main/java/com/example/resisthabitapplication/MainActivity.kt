@@ -16,10 +16,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.observe
 
-
-
-
-
 class MainActivity : AppCompatActivity() {
 
     private val timerViewModel: TimerViewModel by viewModels {
@@ -30,8 +26,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val quoteAPIViewModel: QuoteAPIViewModel by viewModels()
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,30 +49,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
-
-        // Observe the StateFlow and update UI accordingly
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                quoteAPIViewModel.currentQuote.collect { quote ->
-                    // Update your view with the quote
-                    quoteTextView.text = quote
-                }
-            }
-        }
-
-        // Observe the StateFlow and update UI accordingly
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                quoteAPIViewModel.currentQuote.collect { quote ->
-                    // Update your view with the quote
-                    quoteTextView.text = quote
-                }
-            }
-        }
-
-
-
         // Find the reset button by its ID
         val resetButton = findViewById<Button>(R.id.resetButton)
 
@@ -86,9 +56,6 @@ class MainActivity : AppCompatActivity() {
         resetButton.setOnClickListener {
             resetTimer()
         }
-
-        // Trigger the API request
-        quoteAPIViewModel.fetchQuote()
 
 
         val nameFragment = NameFragment()
@@ -106,16 +73,15 @@ class MainActivity : AppCompatActivity() {
                 commit()
             }
         }
+
         findViewById<Button>(R.id.quoteBtn).setOnClickListener {
+            // Replace the fragment after triggering the API request
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.fragmentToggle, quoteFragment)
                 commit()
             }
         }
-
     }
-
-
 
     // Function to reset the timer
     private fun resetTimer() {
@@ -124,9 +90,5 @@ class MainActivity : AppCompatActivity() {
 
         // Optionally, update any UI elements or perform additional actions after reset
     }
-
-
-
-
 
 }
