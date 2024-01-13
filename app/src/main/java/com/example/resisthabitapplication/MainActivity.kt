@@ -67,6 +67,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Observe the StateFlow and update UI accordingly
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                quoteAPIViewModel.currentQuote.collect { quote ->
+                    // Update your view with the quote
+                    quoteTextView.text = quote
+                }
+            }
+        }
+
 
 
         // Find the reset button by its ID
@@ -80,23 +90,6 @@ class MainActivity : AppCompatActivity() {
         // Trigger the API request
         quoteAPIViewModel.fetchQuote()
 
-
-        /*
-        // Initial fragment
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentToggle, NameFragment())
-            .commit()
-
-        // Button click listeners
-        findViewById<Button>(R.id.habitNameBtn).setOnClickListener {
-            replaceFragment(NameFragment())
-        }
-
-        findViewById<Button>(R.id.quoteBtn).setOnClickListener {
-            replaceFragment(QuoteFragment())
-        }
-
-         */
 
         val nameFragment = NameFragment()
         val quoteFragment = QuoteFragment()
