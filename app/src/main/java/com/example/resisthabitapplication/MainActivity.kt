@@ -12,6 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.observe
 
@@ -78,6 +79,46 @@ class MainActivity : AppCompatActivity() {
 
         // Trigger the API request
         quoteAPIViewModel.fetchQuote()
+
+
+        /*
+        // Initial fragment
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentToggle, NameFragment())
+            .commit()
+
+        // Button click listeners
+        findViewById<Button>(R.id.habitNameBtn).setOnClickListener {
+            replaceFragment(NameFragment())
+        }
+
+        findViewById<Button>(R.id.quoteBtn).setOnClickListener {
+            replaceFragment(QuoteFragment())
+        }
+
+         */
+
+        val nameFragment = NameFragment()
+        val quoteFragment = QuoteFragment()
+
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragmentToggle, nameFragment)
+            commit()
+        }
+
+        // Button click listeners
+        findViewById<Button>(R.id.habitNameBtn).setOnClickListener {
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.fragmentToggle, nameFragment)
+                commit()
+            }
+        }
+        findViewById<Button>(R.id.quoteBtn).setOnClickListener {
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.fragmentToggle, quoteFragment)
+                commit()
+            }
+        }
 
     }
 
