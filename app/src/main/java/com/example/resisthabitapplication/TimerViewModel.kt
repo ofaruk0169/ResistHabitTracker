@@ -40,6 +40,7 @@ class TimerViewModel(
 
     private fun updateCurrentNumber(newNumber: Int) {
         _currentNumber.value = newNumber
+        //_currentNumber.value = 1000000000
 
         // Save the current number and start time to both SavedStateHandle and SharedPreferences
         savedStateHandle["currentNumber"] = newNumber
@@ -89,9 +90,10 @@ class TimerViewModel(
         //Calculate the percentage of the day passed
         val percentageOfDayPassed = (currentHourInCycle * 60 + minutes) / (24 * 60) * 100
 
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds)
+        //old timer code
+        //return String.format("%02d:%02d:%02d", hours, minutes, seconds)
         //test this tomorrow.
-        //return String.format("%02d:%02d:%02d", currentHourInCycle, minutes, seconds)
+        return String.format("%02d:%02d:%02d", currentHourInCycle, minutes, seconds)
 
     }
 
