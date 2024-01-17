@@ -51,6 +51,9 @@ dependencies {
     //implementation("io.ktor:ktor-server-netty:2.3.7")
     //implementation ("io.ktor:ktor-client-json:2.3.7")
 
+    implementation ("androidx.fragment:fragment-ktx:1.3.0") // or the latest version
+
+
     implementation ("io.ktor:ktor-client-core:2.3.7")
     implementation ("io.ktor:ktor-client-json:2.3.7")
     implementation ("io.ktor:ktor-client-android:2.3.7")

@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         timerViewModel.startTimer()
 
         val timeElapsedView = findViewById<TextView>(R.id.streakTimeMinutes)
@@ -62,7 +63,6 @@ class MainActivity : AppCompatActivity() {
                 quoteAPIViewModel.currentQuote.collect { quote ->
                     // Update your view with the quote
                     quoteTextView.text = quote
-
                 }
             }
         }
