@@ -81,7 +81,18 @@ class TimerViewModel(
         val minutes = (_currentNumber.value % 3600) / 60
         val seconds = _currentNumber.value % 60
 
+        val days = hours / 24
+        // Convert days to hours and sum up the total hours
+        val totalHours = (days * 24) + hours
+        val currentHourInCycle = totalHours % 24
+
+        //Calculate the percentage of the day passed
+        val percentageOfDayPassed = (currentHourInCycle * 60 + minutes) / (24 * 60) * 100
+
         return String.format("%02d:%02d:%02d", hours, minutes, seconds)
+        //test this tomorrow.
+        //return String.format("%02d:%02d:%02d", currentHourInCycle, minutes, seconds)
+
     }
 
     // Function to get the number of days

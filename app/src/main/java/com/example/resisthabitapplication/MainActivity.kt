@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         val timeElapsedView = findViewById<TextView>(R.id.streakTimeMinutes)
         val daysView = findViewById<TextView>(R.id.streakDays)
-        val quoteTextView = findViewById<TextView>(R.id.motivationalQuote)
+        //val quoteTextView = findViewById<TextView>(R.id.motivationalQuote)
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -57,25 +57,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        // Observe the StateFlow and update UI accordingly
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                quoteAPIViewModel.currentQuote.collect { quote ->
-                    // Update your view with the quote
-                    quoteTextView.text = quote
-                }
-            }
-        }
 
-        // Observe the StateFlow and update UI accordingly
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                quoteAPIViewModel.currentQuote.collect { quote ->
-                    // Update your view with the quote
-                    quoteTextView.text = quote
-                }
-            }
-        }
 
 
 
