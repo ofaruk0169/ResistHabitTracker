@@ -6,8 +6,22 @@ import kotlinx.coroutines.flow.StateFlow
 
 class HabitNameViewModel : ViewModel() {
 
-    private val _currentQuote = MutableStateFlow<String>("")
-    val currentQuote: StateFlow<String> get() = _currentQuote
+    private val _habitName = MutableStateFlow<String>("")
+    val habitName: StateFlow<String> get() = _habitName
+
+
+
+
+    fun changeName() {
+
+
+
+
+
+
+
+
+    }
 
 
 

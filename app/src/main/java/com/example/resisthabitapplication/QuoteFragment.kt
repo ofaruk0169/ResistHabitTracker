@@ -30,13 +30,13 @@ class QuoteFragment : Fragment(R.layout.quote_fragment) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 quoteAPIViewModel.currentQuote.collect { quote ->
                     // Update your view with the quote
-                    updateTextContent(quote)
+                    updateQuoteContent(quote)
                 }
             }
         }
     }
 
-    private fun updateTextContent(quote: String) {
+    private fun updateQuoteContent(quote: String) {
         val quoteTextView = view?.findViewById<TextView>(R.id.tvQuoteFragment)
         quoteTextView?.text = quote
     }
