@@ -6,22 +6,15 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import androidx.activity.viewModels
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.observe
-
-
-
-
 
 class MainActivity : AppCompatActivity() {
 
+    //koin needed here, dependency injection.
     private val timerViewModel: TimerViewModel by viewModels {
         TimerViewModelFactory(
             SavedStateHandle( /* Pass any default values if needed */ ),
@@ -56,11 +49,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
-
-
-
-
         // Find the reset button by its ID
         val resetButton = findViewById<Button>(R.id.resetButton)
 
@@ -73,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         quoteAPIViewModel.fetchQuote()
 
 
-        val nameFragment = NameFragment()
+        val nameFragment = HabitNameFragment()
         val quoteFragment = QuoteFragment()
 
         supportFragmentManager.beginTransaction().apply {
@@ -88,6 +76,7 @@ class MainActivity : AppCompatActivity() {
                 commit()
             }
         }
+
         findViewById<Button>(R.id.quoteBtn).setOnClickListener {
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.fragmentToggle, quoteFragment)
