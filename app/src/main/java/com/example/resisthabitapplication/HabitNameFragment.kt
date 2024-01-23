@@ -34,7 +34,7 @@ class HabitNameFragment : Fragment(R.layout.name_fragment) {
 
         val nameTextView = view.findViewById<TextView>(R.id.tvNameFragment)
 
-        // Retrieve the habit name from SharedPreferences
+        // Retrieve the habit name from Data Store
 
 
         // Set an OnClickListener to the TextView
