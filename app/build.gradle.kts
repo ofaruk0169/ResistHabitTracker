@@ -53,6 +53,10 @@ dependencies {
 
     implementation ("androidx.fragment:fragment-ktx:1.3.0") // or the latest version
 
+    //using datastore as shared preferences is deprecated
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+
 
     implementation ("io.ktor:ktor-client-core:2.3.7")
     implementation ("io.ktor:ktor-client-json:2.3.7")
@@ -60,12 +64,8 @@ dependencies {
     implementation ("io.ktor:ktor-client-logging:2.3.7")
     implementation ("ch.qos.logback:logback-classic:1.2.3")
 
-
-
-
     val activityVersion = "1.8.2"
     implementation("androidx.activity:activity-ktx:$activityVersion")
-
 
     val lifecycleVersion = "2.6.2"
 

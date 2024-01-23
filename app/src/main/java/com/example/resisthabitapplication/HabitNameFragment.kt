@@ -4,28 +4,38 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import io.ktor.utils.io.errors.IOException
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+
 
 class HabitNameFragment : Fragment(R.layout.name_fragment) {
 
-    private lateinit var sharedPreferences: SharedPreferences
-    private val HABIT_NAME_KEY = "habit_name_key"
+    private lateinit var dataStore: DataStore<Preferences>
+
+    private companion object {
+        val HABIT_NAME = stringPreferencesKey("habit_name")
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val nameTextView = view.findViewById<TextView>(R.id.tvNameFragment)
 
-        // Initialize SharedPreferences
-        sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-
         // Retrieve the habit name from SharedPreferences
-        val savedHabitName = sharedPreferences.getString(HABIT_NAME_KEY, "Click to change name")
-        nameTextView.text = savedHabitName
+
 
         // Set an OnClickListener to the TextView
         nameTextView.setOnClickListener {
@@ -47,8 +57,13 @@ class HabitNameFragment : Fragment(R.layout.name_fragment) {
                 val newText = editText.text.toString()
                 updateTextContent(newText)
 
-                // Save the habit name in SharedPreferences
-                sharedPreferences.edit().putString(HABIT_NAME_KEY, newText).apply()
+                // save the habit name in Data Store
+                suspend fun saveHabitNameDataStore(newText: String) {
+                    dataStore.edit { preferences ->
+                        preferences[HABIT_NAME] = newText
+                    }
+                }
+
             }
             .setNegativeButton("Cancel", null)
             .show()
