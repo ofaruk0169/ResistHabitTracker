@@ -1,6 +1,7 @@
 package com.example.resisthabitapplication
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -12,6 +13,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
+import com.example.resisthabitapplication.utils.dataStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -19,12 +21,11 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
+val String.omar get() = "$this is gay"
+fun String.omar2() = "gay"
+
 
 class HabitNameFragment : Fragment(R.layout.name_fragment) {
-
-
-    private val dataStore = preferencesDataStore(name = "habit_name_data_store")
-
 
     private companion object {
         val HABIT_NAME = stringPreferencesKey("habit_name")
@@ -33,7 +34,7 @@ class HabitNameFragment : Fragment(R.layout.name_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        val asdasd = "Omar".omar
             
         //dataStore = requireContext().createDataStore("habit_name_data_store")
 
@@ -76,13 +77,13 @@ class HabitNameFragment : Fragment(R.layout.name_fragment) {
             .show()
     }
     private suspend fun saveHabitNameDataStore(newText: String) {
-        dataStore.edit { preferences ->
+        requireContext().dataStore.edit { preferences ->
             preferences[HABIT_NAME] = newText
         }
     }
 
     private suspend fun retrieveHabitNameFromDataStore(): String {
-        return dataStore.data.map { preferences ->
+        return requireContext().dataStore.data.map { preferences ->
             preferences[HABIT_NAME] ?: "Edit Habit Name"
         }.first()
     }
