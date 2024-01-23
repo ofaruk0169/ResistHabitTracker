@@ -1,41 +1,50 @@
 package com.example.resisthabitapplication
 
 import android.app.AlertDialog
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import io.ktor.utils.io.errors.IOException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 
 class HabitNameFragment : Fragment(R.layout.name_fragment) {
 
-    private lateinit var dataStore: DataStore<Preferences>
+
+    private val dataStore = preferencesDataStore(name = "habit_name_data_store")
+
 
     private companion object {
         val HABIT_NAME = stringPreferencesKey("habit_name")
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+            
+        //dataStore = requireContext().createDataStore("habit_name_data_store")
+
 
         val nameTextView = view.findViewById<TextView>(R.id.tvNameFragment)
 
         // Retrieve the habit name from Data Store
-
+        CoroutineScope(Dispatchers.Main).launch {
+            val habitName = retrieveHabitNameFromDataStore()
+            updateTextContent(habitName)
+        }
 
         // Set an OnClickListener to the TextView
         nameTextView.setOnClickListener {
@@ -58,15 +67,24 @@ class HabitNameFragment : Fragment(R.layout.name_fragment) {
                 updateTextContent(newText)
 
                 // save the habit name in Data Store
-                suspend fun saveHabitNameDataStore(newText: String) {
-                    dataStore.edit { preferences ->
-                        preferences[HABIT_NAME] = newText
-                    }
+                CoroutineScope(Dispatchers.Main).launch {
+                    saveHabitNameDataStore(newText)
                 }
 
             }
             .setNegativeButton("Cancel", null)
             .show()
+    }
+    private suspend fun saveHabitNameDataStore(newText: String) {
+        dataStore.edit { preferences ->
+            preferences[HABIT_NAME] = newText
+        }
+    }
+
+    private suspend fun retrieveHabitNameFromDataStore(): String {
+        return dataStore.data.map { preferences ->
+            preferences[HABIT_NAME] ?: "Edit Habit Name"
+        }.first()
     }
 
     private fun updateTextContent(newText: String) {
