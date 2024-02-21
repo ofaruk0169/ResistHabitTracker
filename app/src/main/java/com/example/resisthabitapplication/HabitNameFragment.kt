@@ -21,8 +21,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-val String.omar get() = "$this is gay"
-fun String.omar2() = "gay"
+val String.omar get() = "$this is test"
+fun String.omar2() = "test"
 
 
 class HabitNameFragment : Fragment(R.layout.name_fragment) {
