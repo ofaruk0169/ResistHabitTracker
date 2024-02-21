@@ -15,6 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "ResistHabitApplication"
 include(":app")
-
-test
  
