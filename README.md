@@ -5,8 +5,4 @@ I use habit trackers personally with my Android phone and thought it would be a 
 
 This project taught me a lot about architectural patterns, the Android ecosystem and Process death. It was my first Android application... And first personal project of mine in general which I have completed start to finish. I am really proud I have gotten it working and upon completion it solidified my interest in Android development as something I want to pursue as a career in my life. 
 
-
-<video width="320" height="240" controls>
-  <source src="https://www.youtube.com/shorts/M9-UF7ztn6A" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/YOUTUBE_VI...)](https://www.youtube.com/watch?v=YOUTU...)
