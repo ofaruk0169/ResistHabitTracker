@@ -5,7 +5,7 @@ I use habit trackers personally with my Android phone and thought it would be a 
 
 This project taught me a lot about architectural patterns, the Android ecosystem and Process death. I am really proud I have gotten it working and upon completion it solidified my interest in Android development as something I want to pursue as a career in my life. 
 
-Below is a YouTube link to the project so you yourself can get a feel for my vision. 
+Below is a YouTube link to the project so you yourself can get a feel for my vision. Upon starting the application a timer will start indicating to the user how long they have abstained from their chosen habit. Users are able to rename their habit, see a motivational quote of the day and reset their time if they have broken their habit. 
 
 [![ResistHabitTracker](https://img.youtube.com/vi/M9-UF7ztn6A/0.jpg)](https://www.youtube.com/shorts/M9-UF7ztn6A)
 
