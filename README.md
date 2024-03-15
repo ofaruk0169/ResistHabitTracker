@@ -1,7 +1,7 @@
 ﻿# Resist Habit Tracker
 ## A custom habit tracker for users to measure how much time they have abstained from their chosen habit.  
 
-I use habit trackers personally with my Android phone and thought it would be a great idea to recreate their functionality with a habit tracker of my own! This habit tracker uses XML with Views for the user interface. Furthermore, it implements modern Android features with Kotlin such as Coroutines and Flows to allow for the dynamic asyncronous counting functionality of the application. The apps state is saved using the MVVM architecture and DataStore to persist the user's current time for when they revisit the application. 
+I use habit trackers personally with my Android phone and thought it would be a great idea to recreate their functionality with a habit tracker of my own! This habit tracker uses XML with Views for the user interface. Furthermore, it implements modern Android features with Kotlin such as Coroutines and Flows to allow for the dynamic asyncronous counting functionality of the application. The apps state is saved using the MVVM architecture and DataStore to persist the user's current time for when they revisit the application. Within the fragment of the application the user can switch between their habit name and a motivational quote, the motivational quote used Ktor to fetch the quote of the day from a remore API to display to the user. 
 
 This project taught me a lot about architectural patterns, the Android ecosystem and Process death. I am really proud I have gotten it working and upon completion it solidified my interest in Android development as something I want to pursue as a career in my life. 
 
