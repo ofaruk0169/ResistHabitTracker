@@ -13,7 +13,7 @@ Below is a YouTube link to the project so you yourself can get a feel for my vis
 
 If you are interested in installing this application onto your local computer for a personalised demo, follow these instructions. 
 
-1. Clone the repository using the following command on your terminal - git clone https://github.com/ofaruk0169/ResistHabitTracker.git
+1. Clone the repository using the following command on your terminal - `git clone https://github.com/ofaruk0169/ResistHabitTracker.git`
 2. Open Android Studio on your computer
 3. In Android Studio select "File" > "Open" and navigate to the directory where you cloned the repository. Select the "ResistHabitTracker" directory and click "OK" to import the project into Android Studio.
 4. Once the project is imported, Android Studio may automatically start syncing the project with Gradle. If not, you can manually trigger the sync process by clicking on the "Sync Project with Gradle Files" icon in the toolbar.
