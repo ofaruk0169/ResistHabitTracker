@@ -5,4 +5,7 @@ I use habit trackers personally with my Android phone and thought it would be a 
 
 This project taught me a lot about architectural patterns, the Android ecosystem and Process death. It was my first Android application... And first personal project of mine in general which I have completed start to finish. I am really proud I have gotten it working and upon completion it solidified my interest in Android development as something I want to pursue as a career in my life. 
 
+Below is a YouTube link to the project so you yourself can get a feel for my vision. 
+
 [![ResistHabitTracker](https://img.youtube.com/vi/M9-UF7ztn6A/0.jpg)](https://www.youtube.com/shorts/M9-UF7ztn6A)
+
