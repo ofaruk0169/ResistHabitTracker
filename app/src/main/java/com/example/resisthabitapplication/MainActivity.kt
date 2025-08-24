@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity() {
         // Trigger the API request
         quoteAPIViewModel.fetchQuote()
 
-
         val nameFragment = HabitNameFragment()
         val quoteFragment = QuoteFragment()
 

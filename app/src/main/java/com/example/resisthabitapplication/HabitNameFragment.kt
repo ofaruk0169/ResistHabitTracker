@@ -21,10 +21,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-val String.omar get() = "$this is test"
-fun String.omar2() = "test"
-
-
 class HabitNameFragment : Fragment(R.layout.name_fragment) {
 
     private companion object {
@@ -34,8 +30,7 @@ class HabitNameFragment : Fragment(R.layout.name_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val asdasd = "Omar".omar
-            
+
         //dataStore = requireContext().createDataStore("habit_name_data_store")
 
 
