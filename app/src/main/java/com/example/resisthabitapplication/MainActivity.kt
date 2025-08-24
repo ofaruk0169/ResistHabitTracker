@@ -14,7 +14,6 @@ import androidx.lifecycle.SavedStateHandle
 
 class MainActivity : AppCompatActivity() {
 
-    //koin needed here, dependency injection.
     private val timerViewModel: TimerViewModel by viewModels {
         TimerViewModelFactory(
             SavedStateHandle( /* Pass any default values if needed */ ),
@@ -23,8 +22,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val quoteAPIViewModel: QuoteAPIViewModel by viewModels()
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
